@@ -4,30 +4,30 @@ using UnityEngine;
 
 public class Alarm : MonoBehaviour
 {
-    [SerializeField] private AudioSource _alarm;
+    private AudioSource _alarm;
     private float _volumeStep = 0.01f;
     private Coroutine _increaseVolumeJob;
     private Coroutine _decreaseVolumeJob;
     private WaitForSeconds _delay = new WaitForSeconds(0.003f);
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Awake()
     {
-        if (collision.TryGetComponent<Rogue>(out Rogue rogue))
-        {
-            _alarm.Play();
-            _increaseVolumeJob = StartCoroutine(GradualIncreaseVolume());
-        }
+        _alarm = GetComponentInParent<AudioSource>();
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public void AlarmStart()
     {
-        if (collision.TryGetComponent<Rogue>(out Rogue rogue))
-        {
-            _decreaseVolumeJob = StartCoroutine(GradualDecreaseVolume());
-        }
+        _alarm.Play();
+        _increaseVolumeJob = StartCoroutine(IncreaseVolume());
     }
 
-    IEnumerator GradualIncreaseVolume()
+    public void AlarmStop()
+    {
+        StopCoroutine(_increaseVolumeJob);
+        _decreaseVolumeJob = StartCoroutine(DecreaseVolume());
+    }
+
+    private IEnumerator IncreaseVolume()
     {
         int milliseconds = 1000;
 
@@ -37,11 +37,9 @@ public class Alarm : MonoBehaviour
 
             yield return _delay;
         }
-
-        StopCoroutine(_increaseVolumeJob);
     }
 
-    IEnumerator GradualDecreaseVolume()
+    private IEnumerator DecreaseVolume()
     {
         int milliseconds = 1000;
 
@@ -51,7 +49,5 @@ public class Alarm : MonoBehaviour
 
             yield return _delay;
         }
-
-        StopCoroutine(_decreaseVolumeJob);
     }
 }

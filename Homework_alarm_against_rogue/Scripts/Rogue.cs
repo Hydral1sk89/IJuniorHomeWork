@@ -5,15 +5,21 @@ using UnityEngine;
 public class Rogue : MonoBehaviour
 {
     [SerializeField] private Transform _path;
-    [SerializeField] private float _speed;
     [SerializeField] private Animator _walkAnimation;
+
+    private const string IsWalk = nameof(IsWalk);
 
     private Transform[] _points;
     private int _currentPoint;
-    private int _doorPoint = 2;
+    private int _indexPointDoorLocated = 2;
+    private float _delay = 3f;
+    private float _speed;
+    private float _stay = 0f;
+    private float _walkSpeed = 2f;
 
     private void Start()
     {
+        _speed = _walkSpeed;
         _points = new Transform[_path.childCount];
 
         for (int i = 0; i < _path.childCount; i++)
@@ -34,9 +40,9 @@ public class Rogue : MonoBehaviour
             {
                 _currentPoint++;
 
-                if (_currentPoint == _doorPoint)
+                if (_currentPoint == _indexPointDoorLocated)
                 {
-                    StartCoroutine(Wait(3f));
+                    StartCoroutine(Wait(_delay));
                 }
             }
         }
@@ -46,11 +52,11 @@ public class Rogue : MonoBehaviour
     {
         var wait = new WaitForSeconds(seconds);
 
-        _speed = 0;
-        _walkAnimation.SetBool("IsWalk", false);
+        _speed = _stay;
+        _walkAnimation.SetBool(IsWalk, false);
 
         yield return wait;
-        _speed = 2;
-        _walkAnimation.SetBool("IsWalk", true);
+        _speed = _walkSpeed;
+        _walkAnimation.SetBool(IsWalk, true);
     }
 }
