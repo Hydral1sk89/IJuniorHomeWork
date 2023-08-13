@@ -8,7 +8,7 @@ public class SpawnController : MonoBehaviour
     [SerializeField] private List<Transform> _directions;
     [SerializeField] private SkeletonWalk _unit;
     [SerializeField] private float _spawnDelay;
-    [SerializeField] private int _numberSkeletonSpawns;
+    [SerializeField] private int _countSkeletons;
 
     private Coroutine _createUnit;
 
@@ -17,9 +17,9 @@ public class SpawnController : MonoBehaviour
         _createUnit = StartCoroutine(CreateMonster(_spawnDelay));
     }
 
-    IEnumerator CreateMonster(float delay)
+    private IEnumerator CreateMonster(float delay)
     {
-        for (int i = 0; i < _numberSkeletonSpawns; i++)
+        for (int i = 0; i < _countSkeletons; i++)
         {
             var wait = new WaitForSecondsRealtime(delay);
 

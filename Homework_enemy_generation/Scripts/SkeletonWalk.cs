@@ -9,13 +9,13 @@ public class SkeletonWalk : MonoBehaviour
     [SerializeField] private Transform _target;
 
     // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         _rigidbody2D.velocity = _target.position * _speed;
     }
