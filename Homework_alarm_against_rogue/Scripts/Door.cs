@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-[RequireComponent(typeof(Alarm))]
 
 public class Door : MonoBehaviour
 {
-    [SerializeField] private Alarm _alarm; 
+    [SerializeField]private UnityEvent _opened;
+    [SerializeField]private UnityEvent _closed;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<Rogue>(out Rogue rogue))
         {
-            _alarm.AlarmStart();
+            _opened?.Invoke();
         }
     }
 
@@ -20,7 +21,7 @@ public class Door : MonoBehaviour
     {
         if(collision.TryGetComponent<Rogue>(out Rogue rogue))
         {
-            _alarm.AlarmStop();
+            _closed?.Invoke();
         }
     }
 }
