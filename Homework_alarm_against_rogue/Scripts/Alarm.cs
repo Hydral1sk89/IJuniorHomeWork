@@ -4,50 +4,52 @@ using UnityEngine;
 
 public class Alarm : MonoBehaviour
 {
+    [SerializeField] private float _volumeStep = 0.01f;
+
+    private float _increase = 1;
+    private float _decrease = 0;
     private AudioSource _alarm;
-    private float _volumeStep = 0.01f;
-    private Coroutine _increaseVolumeJob;
-    private Coroutine _decreaseVolumeJob;
-    private WaitForSeconds _delay = new WaitForSeconds(0.003f);
+    private Coroutine _ChangeVolumeJob;
+
+    public void AlarmStart()
+    {
+        if (_ChangeVolumeJob != null)
+        {
+            StopCoroutine(_ChangeVolumeJob);
+        }
+
+        _alarm.volume = 0;
+        _alarm.Play();
+        _ChangeVolumeJob = StartCoroutine(ChangeVolume(_volumeStep, _increase));
+    }
+
+    public void AlarmStop()
+    {
+        if (_ChangeVolumeJob != null) 
+        {
+            StopCoroutine(_ChangeVolumeJob); 
+        }
+
+        _ChangeVolumeJob = StartCoroutine(ChangeVolume(_volumeStep, _decrease));
+
+        if(_alarm.volume == 0)
+        {
+            _alarm.Stop();
+        }
+    }
 
     private void Awake()
     {
         _alarm = GetComponentInParent<AudioSource>();
     }
 
-    public void AlarmStart()
+    private IEnumerator ChangeVolume(float step, float target)
     {
-        _alarm.Play();
-        _increaseVolumeJob = StartCoroutine(IncreaseVolume());
-    }
-
-    public void AlarmStop()
-    {
-        StopCoroutine(_increaseVolumeJob);
-        _decreaseVolumeJob = StartCoroutine(DecreaseVolume());
-    }
-
-    private IEnumerator IncreaseVolume()
-    {
-        int milliseconds = 1000;
-
-        for (float i = 0; i < milliseconds; i++)
+        while(Mathf.Abs(_alarm.volume - target) > Mathf.Epsilon)
         {
-            _alarm.volume = i / milliseconds;
+            _alarm.volume = Mathf.MoveTowards(_alarm.volume, target, step * Time.deltaTime);
 
-            yield return _delay;
-        }
-    }
-
-    private IEnumerator DecreaseVolume()
-    {
-        int milliseconds = 1000;
-
-        for (float i = milliseconds; i >= 0; i--)
-        {
-            _alarm.volume = i / milliseconds;
-
-            yield return _delay;
+            yield return null;
         }
     }
 }
