@@ -20,7 +20,6 @@ public class GoPlaces : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     public void Update()
     {
         var target = _targets[indexPosition];

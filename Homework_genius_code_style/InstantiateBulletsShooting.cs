@@ -8,10 +8,9 @@ public class InstantiateBulletsShooting : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _delay;
-    [SerializeField] private GameObject _bullet;
+    [SerializeField] private Rigidbody _bullet;
     [SerializeField] private Transform _target;
 
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(ShootingWorker());
