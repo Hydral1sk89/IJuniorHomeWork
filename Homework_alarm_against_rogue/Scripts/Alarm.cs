@@ -21,10 +21,7 @@ public class Alarm : MonoBehaviour
 
     public void AlarmStart()
     {
-        if (_ChangeVolumeJob != null)
-        {
-            StopCoroutine(_ChangeVolumeJob);
-        }
+        StopCoroutineChangeVolume();
 
         _alarm.volume = _volumeZero;
         _alarm.Play();
@@ -33,16 +30,21 @@ public class Alarm : MonoBehaviour
 
     public void AlarmStop()
     {
-        if (_ChangeVolumeJob != null) 
-        {
-            StopCoroutine(_ChangeVolumeJob); 
-        }
+        StopCoroutineChangeVolume();
 
         _ChangeVolumeJob = StartCoroutine(ChangeVolume(_volumeStep, _decrease));
 
         if(_alarm.volume == _volumeZero)
         {
             _alarm.Stop();
+        }
+    }
+
+    private void StopCoroutineChangeVolume()
+    {
+        if (_ChangeVolumeJob != null)
+        {
+            StopCoroutine(_ChangeVolumeJob);
         }
     }
 
