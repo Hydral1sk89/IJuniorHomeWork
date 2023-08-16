@@ -11,12 +11,12 @@ public class InstantiateBulletsShooting : MonoBehaviour
     [SerializeField] private Rigidbody _bullet;
     [SerializeField] private Transform _target;
 
-    void Start()
+    private void Start()
     {
         StartCoroutine(ShootingWorker());
     }
 
-    IEnumerator ShootingWorker()
+    private IEnumerator ShootingWorker()
     {
         bool isWork = true;
 

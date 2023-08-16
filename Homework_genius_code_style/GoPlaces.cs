@@ -7,10 +7,10 @@ public class GoPlaces : MonoBehaviour
     [SerializeField] private Transform _targetPosition;
 
     private Transform[] _targets;
-    private int indexPosition;
+    private int _indexPosition;
     private float _speed;
 
-    void Start()
+    private void Start()
     {
         _targets = new Transform[_targetPosition.childCount];
 
@@ -20,9 +20,9 @@ public class GoPlaces : MonoBehaviour
         }
     }
 
-    public void Update()
+    private void Update()
     {
-        var target = _targets[indexPosition];
+        var target = _targets[_indexPosition];
         transform.position = Vector3.MoveTowards(transform.position, target.position, _speed * Time.deltaTime);
 
         if (transform.position == target.position)
@@ -31,16 +31,16 @@ public class GoPlaces : MonoBehaviour
         }
     }
 
-    public Vector3 GetNextTargetPosition()
+    private Vector3 GetNextTargetPosition()
     {
-        indexPosition++;
+        _indexPosition++;
 
-        if (indexPosition == _targets.Length)
+        if (_indexPosition == _targets.Length)
         {
-            indexPosition = 0;
+            _indexPosition = 0;
         }
 
-        var targetPosition = _targets[indexPosition].transform.position;
+        var targetPosition = _targets[_indexPosition].transform.position;
         transform.forward = targetPosition - transform.position;
 
         return targetPosition;
