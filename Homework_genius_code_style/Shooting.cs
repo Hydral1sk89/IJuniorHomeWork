@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 
-public class InstantiateBulletsShooting : MonoBehaviour
+public class Shooting : MonoBehaviour
 {
     [SerializeField] private float _speed;
     [SerializeField] private float _delay;
@@ -13,11 +12,12 @@ public class InstantiateBulletsShooting : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(ShootingWorker());
+        StartCoroutine(Shoot());
     }
 
-    private IEnumerator ShootingWorker()
+    private IEnumerator Shoot()
     {
+        var wait = new WaitForSeconds(_delay);
         bool isWork = true;
 
         while (isWork)
@@ -25,10 +25,10 @@ public class InstantiateBulletsShooting : MonoBehaviour
             var direction = (_target.position - transform.position).normalized;
             var newBullet = Instantiate(_bullet, transform.position + direction, Quaternion.identity);
 
-            newBullet.GetComponent<Rigidbody>().transform.up = direction;
-            newBullet.GetComponent<Rigidbody>().velocity = direction * _speed;
+            newBullet.transform.up = direction;
+            newBullet.velocity = direction * _speed;
 
-            yield return new WaitForSeconds(_delay);
+            yield return wait;
         }
     }
 }

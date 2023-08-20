@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GoPlaces : MonoBehaviour
+public class Movement : MonoBehaviour
 {
     [SerializeField] private Transform _targetPosition;
 
@@ -10,13 +8,14 @@ public class GoPlaces : MonoBehaviour
     private int _indexPosition;
     private float _speed;
 
+
     private void Start()
     {
         _targets = new Transform[_targetPosition.childCount];
 
         for (int i = 0; i < _targetPosition.childCount; i++)
         {
-            _targets[i] = _targetPosition.GetChild(i).GetComponent<Transform>();
+            _targets[i] = _targetPosition.GetChild(i);
         }
     }
 
