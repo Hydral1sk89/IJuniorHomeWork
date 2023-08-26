@@ -8,7 +8,7 @@ public class Target : MonoBehaviour
     private Transform[] _points;
     private int _pointIndex;
 
-    void Start()
+    private void Start()
     {
         _points = new Transform[_path.childCount];
 
