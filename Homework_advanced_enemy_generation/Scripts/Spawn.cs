@@ -1,14 +1,12 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnController : MonoBehaviour
+public class Spawn : MonoBehaviour
 {
+    [SerializeField] private Transform _target;
     [SerializeField] private EnemyWalk _unit;
     [SerializeField] private float _spawnDelay;
     [SerializeField] private int _numberUnitsSpawn;
-    [SerializeField] Transform _target;
-    [SerializeField] Transform _path;
 
     private Coroutine _createUnit;
 
@@ -27,7 +25,6 @@ public class SpawnController : MonoBehaviour
 
             EnemyWalk unit = Instantiate(_unit, transform.position, Quaternion.identity);
             unit.SetTarget(_target);
-            unit.SetPath(_path);
         }
     }
 }
