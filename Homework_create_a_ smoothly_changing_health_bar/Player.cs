@@ -1,31 +1,31 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _health;
     [SerializeField] private float _maxHealth;
     [SerializeField] private float _minHealth;
-    [SerializeField] private Bar _healthBar;
+    [SerializeField] private UnityEvent _damaged;
+    [SerializeField] private UnityEvent _healed;
 
-    public void GetDamage(float damage)
+    public void TakeDamage(float damage)
     {
-        if (_health - damage >= _minHealth)
-        {
-            _health -= damage;
-            _healthBar.ChangeValue(-damage);
-        }
-        else
+        _health -= damage;
+        _damaged?.Invoke();
+
+        if (_health - damage < _minHealth)
             _health = _minHealth;
     }
 
-    public void GetHeal(float heal)
+    public void TakeHeal(float heal)
     {
-        if (_health + heal <= _maxHealth)
+        _health += heal;
+        _healed?.Invoke();
+
+        if (_health + heal > _maxHealth)
         {
-            _health += heal;
-            _healthBar.ChangeValue(heal);
-        }
-        else
             _health = _maxHealth;
+        }
     }
 }
