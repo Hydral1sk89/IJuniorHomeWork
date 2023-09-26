@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -11,6 +10,14 @@ public class ObjectPool : MonoBehaviour
 
     private Camera _camera;
     private List<Enemy> _pool = new List<Enemy>();
+
+    public void ResetPool()
+    {
+        foreach (var item in _pool)
+        {
+            item.gameObject.SetActive(false);
+        }
+    }
 
     protected void Initialize(Enemy[] prefabs)
     {
@@ -45,14 +52,6 @@ public class ObjectPool : MonoBehaviour
                 if (item.transform.position.x < disablePoint.x)
                     item.gameObject.SetActive(false);
             }
-        }
-    }
-
-    public void ResetPool()
-    {
-        foreach (var item in _pool)
-        {
-            item.gameObject.SetActive(false);
         }
     }
 }

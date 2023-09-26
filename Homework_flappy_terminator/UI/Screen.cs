@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,7 +10,6 @@ public abstract class Screen : MonoBehaviour
     {
         Button.onClick.AddListener(OnButtonClick);
     }
-
 
     private void OnDisable()
     {

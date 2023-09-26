@@ -28,13 +28,6 @@ public class BirdMover : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            _rigidbody.velocity = new Vector2(_speed, 0);
-            transform.rotation = _maxRotation;
-            _rigidbody.AddForce(Vector2.up * _tapForce, ForceMode2D.Force);
-        }
-
         transform.rotation = Quaternion.Lerp(transform.rotation, _minRotation, _rotationSpeed * Time.deltaTime);
     }
 
@@ -43,5 +36,12 @@ public class BirdMover : MonoBehaviour
         transform.position = _startPosition;
         transform.rotation = Quaternion.Euler(0, 0, 0);
         _rigidbody.velocity = Vector2.zero;
+    }
+
+    public void Jump()
+    {
+        _rigidbody.velocity = new Vector2(_speed, 0);
+        transform.rotation = _maxRotation;
+        _rigidbody.AddForce(Vector2.up * _tapForce, ForceMode2D.Force);
     }
 }

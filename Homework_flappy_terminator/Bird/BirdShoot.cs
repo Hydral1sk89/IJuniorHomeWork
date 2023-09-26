@@ -15,21 +15,16 @@ public class BirdShoot : MonoBehaviour
 
         if (_elapsedTime > _reloadTime)
             _canShoot = true;
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            if (_canShoot)
-            {
-                Shoot();
-                _elapsedTime = 0;
-                _canShoot = false;
-            }
-        }
     }
 
-    private void Shoot()
+    public void Shoot()
     {
-        var bullet = Instantiate(_bullet, _shootPoint.position, Quaternion.identity);
-        bullet.Init(transform.right, transform.localRotation);
+        if (_canShoot)
+        {
+            var bullet = Instantiate(_bullet, _shootPoint.position, Quaternion.identity);
+            bullet.Init(transform.right, transform.localRotation);
+            _canShoot = false;
+            _elapsedTime = 0;
+        }
     }
 }
