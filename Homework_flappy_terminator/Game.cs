@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Game : MonoBehaviour
 {
     [SerializeField] private Score _score;
     [SerializeField] private Bird _bird;
-    [SerializeField] private EnemyGenerator _pipeGenerator;
+    [SerializeField] private EnemyGenerator _enemyGenerator;
     [SerializeField] private StartScreen _startScreen;
     [SerializeField] private GameOverScreen _gameOverScreen;
 
@@ -40,7 +39,7 @@ public class Game : MonoBehaviour
     private void OnRestartButtonClick()
     {
         _gameOverScreen.Close();
-        _pipeGenerator.ResetPool();
+        _enemyGenerator.ResetPool();
         StartGame();
     }
 

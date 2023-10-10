@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BirdShoot : MonoBehaviour
@@ -6,16 +7,7 @@ public class BirdShoot : MonoBehaviour
     [SerializeField] private Transform _shootPoint;
     [SerializeField] private float _reloadTime;
 
-    private float _elapsedTime;
-    private bool _canShoot;
-
-    private void Update()
-    {
-        _elapsedTime += Time.deltaTime;
-
-        if (_elapsedTime > _reloadTime)
-            _canShoot = true;
-    }
+    private bool _canShoot = true;
 
     public void Shoot()
     {
@@ -24,7 +16,15 @@ public class BirdShoot : MonoBehaviour
             var bullet = Instantiate(_bullet, _shootPoint.position, Quaternion.identity);
             bullet.Init(transform.right, transform.localRotation);
             _canShoot = false;
-            _elapsedTime = 0;
+            StartCoroutine(DelayBetweenShot(_reloadTime));
         }
+    }
+
+    private IEnumerator DelayBetweenShot(float delay)
+    {
+        var wait = new WaitForSeconds(delay);
+
+        yield return wait;
+        _canShoot = true;
     }
 }

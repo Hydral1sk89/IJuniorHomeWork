@@ -15,6 +15,7 @@ public class ObjectPool : MonoBehaviour
     {
         foreach (var item in _pool)
         {
+            item.ResetBullets();
             item.gameObject.SetActive(false);
         }
     }

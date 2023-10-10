@@ -6,6 +6,6 @@ public class EnemyBullet : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(Vector2.left * _speed * Time.deltaTime, Space.World);
+        transform.Translate(Vector2.left * _speed * Time.deltaTime);
     }
 }
