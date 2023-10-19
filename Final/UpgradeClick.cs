@@ -15,6 +15,8 @@ public class UpgradeClick : MonoBehaviour
     [SerializeField] private float _multiplyPrice = 1.1f;
     [SerializeField] private int _AddMushroomPerClick = 1;
 
+    private int _counter;
+
     private void OnEnable()
     {
         _sellButton.onClick.AddListener(OnButtonClick);
@@ -22,7 +24,7 @@ public class UpgradeClick : MonoBehaviour
 
     private void OnDisable()
     {
-        _sellButton.onClick.AddListener(OnButtonClick);
+        _sellButton.onClick.RemoveListener(OnButtonClick);
     }
 
     private void Start()
@@ -36,8 +38,8 @@ public class UpgradeClick : MonoBehaviour
         {
             _count++;
             _countMushroomPerClick++;
-            _resources.AddMushroomPerClick(_AddMushroomPerClick);
             _price *= _multiplyPrice;
+            _resources.AddMushroomPerClick(_AddMushroomPerClick);
             Display();
         }
     }
