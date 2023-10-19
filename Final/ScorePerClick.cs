@@ -7,12 +7,10 @@ public class ScorePerClick : MonoBehaviour
     [SerializeField] private ClickIcon _clickIcon;
     [SerializeField] private Resources _resources;
 
-    private RectTransform _rectTransform;
 
     private void OnEnable()
     {
         _mushroomClick.MushroomButtonClick += Display;
-        _rectTransform = GetComponent<RectTransform>();
     }
 
     private void OnDisable()

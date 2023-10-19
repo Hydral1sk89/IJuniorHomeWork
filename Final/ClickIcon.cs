@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using TMPro;
 
@@ -8,16 +9,23 @@ public class ClickIcon : MonoBehaviour
     [SerializeField] private float _maxPositionX;
     [SerializeField] private float _minPositionY;
     [SerializeField] private float _maxPositionY;
+    [SerializeField] private float _delay;
 
     private RectTransform _rectTransform;
     private TMP_Text _text;
 
+    private void OnEnable()
+    {
+        _text = GetComponentInChildren<TMP_Text>();
+    }
+
     public void Initialize(float number)
     {
+        _text.alpha = 255;
         _rectTransform = GetComponent<RectTransform>();
-        _text = GetComponentInChildren<TMP_Text>();
         _text.text = $"+{number.ToString()}";
         _rectTransform.localPosition = SetRandomPosition();
+        StartCoroutine(Dissolve());
     }
 
     private Vector3 SetRandomPosition()
@@ -28,5 +36,12 @@ public class ClickIcon : MonoBehaviour
         position.z = 0;
 
         return position;
+    }
+
+    private IEnumerator Dissolve()
+    {
+        var wait = new WaitForSeconds(_delay);
+        yield return wait;
+        _text.alpha = 0;
     }
 }

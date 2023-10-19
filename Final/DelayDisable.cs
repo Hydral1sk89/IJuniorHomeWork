@@ -1,19 +1,19 @@
 using System.Collections;
 using UnityEngine;
 
-public class DestroyDelay : MonoBehaviour
+public class DelayDisable : MonoBehaviour
 {
     [SerializeField] private float _delay;
 
     private void OnEnable()
     {
-        StartCoroutine(Dissolve());
+        StartCoroutine(Disable());
     }
 
-    private IEnumerator Dissolve()
+    private IEnumerator Disable()
     {
         var wait = new WaitForSeconds(_delay);
         yield return wait;
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
