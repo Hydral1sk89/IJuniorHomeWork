@@ -7,7 +7,7 @@ public class ChangeText : MonoBehaviour
     [SerializeField] private Text _text;
     [SerializeField] private float _duration;
 
-    void Start()
+    private void Start()
     {
         Sequence sequence = DOTween.Sequence();
 
