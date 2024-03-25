@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MedkitSpawner : MonoBehaviour
@@ -8,6 +9,7 @@ public class MedkitSpawner : MonoBehaviour
     [SerializeField] private float _timeBetweenSpawn;
 
     private Transform[] _pointsContainer;
+    private Medkit _currentMedkit;
 
     private Coroutine _delayJob;
 
@@ -26,8 +28,8 @@ public class MedkitSpawner : MonoBehaviour
     public void Spawn()
     {
         int index = GetRandomSpawnPointIndex();
-        Medkit medkit = Instantiate(_medkit, _pointsContainer[index].transform.position, Quaternion.identity);
-        medkit.MedkitTaken += StartDelay;
+        _currentMedkit = Instantiate(_medkit, _pointsContainer[index].transform.position, Quaternion.identity);
+        _currentMedkit.MedkitTaken += StartDelay;
     }
 
     private int GetRandomSpawnPointIndex()
@@ -38,7 +40,10 @@ public class MedkitSpawner : MonoBehaviour
     private void StartDelay()
     {
         if (_delayJob == null)
+        {
+            _currentMedkit.MedkitTaken -= StartDelay;
             StartCoroutine(DelaySpawn());
+        }
     }
 
     private IEnumerator DelaySpawn()

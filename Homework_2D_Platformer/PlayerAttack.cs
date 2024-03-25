@@ -37,6 +37,5 @@ public class PlayerAttack : MonoBehaviour
         yield return wait;
         _playerAnimation.StopAttack();
         _hitPlace.enabled = false;
-        StopCoroutine(_HitTimeJob);
     }
 }

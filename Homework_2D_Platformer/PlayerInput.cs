@@ -8,7 +8,7 @@ public class PlayerInput : MonoBehaviour
     private float _right = 1;
     private float _left = -1;
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.D))
         {
