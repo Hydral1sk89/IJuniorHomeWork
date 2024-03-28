@@ -4,7 +4,7 @@ public class PlayerInput : MonoBehaviour
 {
     [SerializeField] private Counter _counter;
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.Mouse0))
         {
