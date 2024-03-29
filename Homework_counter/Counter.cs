@@ -6,28 +6,29 @@ public class Counter : MonoBehaviour
     [SerializeField] private float _delay = 0.5f;
     [SerializeField] private float _quantity = 0f;
 
-    private Coroutine _AddCountJob;
-    private bool _isStarted = false;
+    private Coroutine _countJob;
+    private bool _isRun = false;
 
     public void Push()
     {
-        if (_isStarted == false)
+        if (_isRun == false)
         {
-            _isStarted = true;
-            _AddCountJob = StartCoroutine(Delay());
+            _isRun = true;
+            _countJob = StartCoroutine(Delay());
         }
         else
         {
-            StopCoroutine(_AddCountJob);
-            _isStarted = false;
+            StopCoroutine(_countJob);
+            _isRun = false;
         }
     }
 
     private IEnumerator Delay()
     {
+        var wait = new WaitForSeconds(_delay);
+
         while (true)
         {
-            var wait = new WaitForSeconds(_delay);
             yield return wait;
 
             _quantity++;
