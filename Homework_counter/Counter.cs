@@ -5,6 +5,7 @@ public class Counter : MonoBehaviour
 {
     [SerializeField] private float _delay = 0.5f;
     [SerializeField] private float _quantity = 0f;
+    [SerializeField] private DisplayQuantity _displayQuantity;
 
     private Coroutine _countJob;
     private bool _isRun = false;
@@ -32,7 +33,7 @@ public class Counter : MonoBehaviour
             yield return wait;
 
             _quantity++;
-            Debug.Log("Количество - " + _quantity);
+            _displayQuantity.Show(_quantity);
         }
     }
 }

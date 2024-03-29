@@ -6,7 +6,7 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Mouse0))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             _counter.Push();
         }
